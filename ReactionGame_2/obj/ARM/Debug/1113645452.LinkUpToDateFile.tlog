@@ -1,0 +1,1 @@
+g++ -o "/home/pi/projects/ReactionGame_2/bin/ARM/Debug/ReactionGame_2.out" -Wl,--no-undefined -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack /home/pi/projects/ReactionGame_2/obj/ARM/Debug/Digital_output.o /home/pi/projects/ReactionGame_2/obj/ARM/Debug/main.o /home/pi/projects/ReactionGame_2/obj/ARM/Debug/Player.o -lwiringPi
