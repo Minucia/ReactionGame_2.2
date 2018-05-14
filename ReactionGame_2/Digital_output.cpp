@@ -2,13 +2,14 @@
 #include <wiringPi.h>
 #include <chrono>
 #include <thread>
-#include <iostream>
 
 #include "Digital_output.h"
+#include "Manage_io.h"
 
 
-Digital_output::Digital_output(int pin, bool state) : pin_{ pin }, state_{ state }
+Digital_output::Digital_output(int pin, std::shared_ptr<Manage_io> ptr_pi_pins, bool state) : pin_{ pin }, ptr_pi_pins_{ ptr_pi_pins }, state_ { state }
 {
+	ptr_pi_pins_->reserve(pin);
 	wiringPiSetup();
 	pinMode(pin_, OUTPUT);
 	digitalWrite(pin_, state_);
@@ -44,7 +45,12 @@ void Digital_output::blink_5_sec()
 	}
 }
 
-bool const Digital_output::get_state()
+bool Digital_output::get_state() const
 {
 	return state_; //digitalRead(pin_);
+}
+
+Digital_output::~Digital_output()
+{
+	ptr_pi_pins_->release(pin_);
 }

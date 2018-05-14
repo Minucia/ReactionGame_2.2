@@ -1,3 +1,11 @@
+/*
+******************************************
+Reaction Game v 2.0 (incl. IO-Manager)
+by Michaela Neuhold & Jakob Soukup
+
+OSD, 14.05.2018
+******************************************
+ */
 
 
 // ____________________________ Includes ____________________________
@@ -13,6 +21,7 @@
 #include "Game_data.h"
 #include "Player.h"
 #include "Digital_output.h"
+#include "Manage_io.h"
 
 
 // ____________________________ Enumeration Class ____________________________
@@ -48,13 +57,18 @@ int main()
 	Player player1;
 	Player player2;
 
-	static constexpr auto led1_pin = 8;
-	static constexpr auto led2_pin = 9;
-	static constexpr auto led_reaction_pin = 7;
+	Manage_io pi_pins;
+	auto ptr_pi_pins = make_shared<Manage_io>(pi_pins);
 
-	Digital_output led_player1{ led1_pin, LOW  };
-	Digital_output led_player2{ led2_pin, LOW };
-	Digital_output led_reaction{ led_reaction_pin, LOW };
+	
+	static constexpr auto led1_pin = 8;
+	Digital_output led_player1{ led1_pin, ptr_pi_pins, LOW };
+		
+	static constexpr auto led2_pin = 9;
+	Digital_output led_player2{ led2_pin, ptr_pi_pins, LOW };
+	
+	static constexpr auto led_reaction_pin = 7;
+	Digital_output led_reaction{ led_reaction_pin, ptr_pi_pins, LOW };
 
 
 	// --------------------- Game Setup --------------------- 
