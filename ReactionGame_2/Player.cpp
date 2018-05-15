@@ -8,7 +8,7 @@ Player::Player() : name_{ "MusterMaxi" }, score_{ 0 }
 {
 }
 
-Player::Player(string name, int score) : name_{ name }, score_{ score }
+Player::Player(string name, int score = 0) : name_{ name }, score_{ score }
 {
 }
 
@@ -17,7 +17,7 @@ void Player::set_name(string name)
 	name_ = name;
 }
 
-string const Player::get_name()
+string Player::get_name() const
 {
 	return name_;
 }
@@ -32,7 +32,7 @@ void Player::reset_score()
 	score_ = 0;
 }
 
-int const Player::get_score()
+int Player::get_score() const
 {
 	return score_;
 }
