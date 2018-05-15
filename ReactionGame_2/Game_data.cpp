@@ -9,12 +9,12 @@ Game_data::Game_data(bool loop, bool button1_flag, bool button2_flag, int played
 {
 }
 
-void Game_data::set_loop(bool loop)
+void Game_data::stop(bool loop)
 {
 	loop_ = loop;
 }
 
-bool Game_data::get_loop() const
+bool Game_data::running() const
 {
 	return loop_;
 }
