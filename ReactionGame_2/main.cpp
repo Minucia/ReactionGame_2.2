@@ -11,16 +11,10 @@ OSD, 14.05.2018
 // ____________________________ Includes ____________________________
 
 #include <wiringPi.h>
-#include <iostream>
-#include <string>
 #include <chrono>
-#include <thread>
-#include <fstream>
 //#include "json.hpp"
 
 #include "Game_data.h"
-#include "Player.h"
-#include "Digital_output.h"
 #include "Game_logic.h"
 
 
