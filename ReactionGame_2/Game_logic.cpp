@@ -1,6 +1,6 @@
 #include "Game_logic.h"
 #include <iostream>
-#include <wiringPi.h>
+#include "piproxy.h"
 #include <thread>
 
 using namespace std;
