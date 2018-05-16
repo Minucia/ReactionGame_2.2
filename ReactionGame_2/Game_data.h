@@ -19,8 +19,8 @@ private:
 public:
 	Game_data(bool loop, bool button1_flag, bool button2_flag, int played_rounds, int rounds_to_play, int64_t desired_delay, int64_t delay_start, int64_t actual_delay);
 
-	void set_loop(bool loop);
-	bool get_loop() const;
+	void stop(bool loop);
+	bool running() const;
 	void set_button1_flag(bool button1_flag);
 	bool get_button1_flag() const;
 	void set_button2_flag(bool button2_flag);

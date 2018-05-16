@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include <sstream>
 
 
@@ -8,10 +7,10 @@ public:
 	Player();
 	Player(std::string name, int score);
 	void set_name(std::string name);
-	std::string const get_name();
+	std::string get_name() const;
 	void increase_score();
 	void reset_score();
-	int const get_score();
+	int get_score() const;
 
 private:
 	std::string name_;
