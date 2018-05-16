@@ -1,23 +1,21 @@
+#include "Manage_io.h"
 
 #include <iostream>
 #include <algorithm>
+#include <stdexcept>
 
-#include "Manage_io.h"
+std::vector<int> Manage_io::reserved_pins_{};
 
-Manage_io::Manage_io()
+void Manage_io::reserve(int pin) const
 {
-}
-
-void Manage_io::reserve(int pin)
-{
-	if (std::find(reserved_pins_.begin(), reserved_pins_.end(), pin) != reserved_pins_.end)
+	if (std::find(reserved_pins_.begin(), reserved_pins_.end(), pin) == reserved_pins_.end())
 		reserved_pins_.push_back(pin);
 	else
-		std::cout << "Pin already taken." << std::endl; //error should be handled in the future
+		throw std::runtime_error("Pin has already been reserved!");
 	
 }
 
-void Manage_io::release(int pin)
+void Manage_io::release(int pin) const
 {
 	reserved_pins_.erase(std::remove(reserved_pins_.begin(), reserved_pins_.end(), pin), reserved_pins_.end());
 }

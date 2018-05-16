@@ -53,6 +53,7 @@
   <ItemGroup>
     <ClCompile Include="Digital_output.cpp" />
     <ClCompile Include="Game_data.cpp" />
+    <ClCompile Include="Game_logic.cpp" />
     <ClCompile Include="Manage_io.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -60,6 +61,7 @@
   <ItemGroup>
     <ClInclude Include="Digital_output.h" />
     <ClInclude Include="Game_data.h" />
+    <ClInclude Include="Game_logic.h" />
     <ClInclude Include="Manage_io.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>

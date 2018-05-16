@@ -7,24 +7,23 @@
 #include "Manage_io.h"
 
 
-Digital_output::Digital_output(int pin, std::shared_ptr<Manage_io> ptr_pi_pins, bool state) : pin_{ pin }, ptr_pi_pins_{ ptr_pi_pins }, state_ { state }
+Digital_output::Digital_output(int pin, bool state) : 
+	pin_{ pin }
 {
-	ptr_pi_pins_->reserve(pin);
+	manage_io_.reserve(pin);
 	wiringPiSetup();
 	pinMode(pin_, OUTPUT);
-	digitalWrite(pin_, state_);
+	digitalWrite(pin_, state);
 }
 
 void Digital_output::turn_on()
 {
 	digitalWrite(pin_, HIGH);
-	state_ = HIGH;
 }
 
 void Digital_output::turn_off()
 {
 	digitalWrite(pin_, LOW);
-	state_ = LOW;
 }
 
 void Digital_output::turn_on_3_sec()
@@ -47,10 +46,24 @@ void Digital_output::blink_5_sec()
 
 bool Digital_output::get_state() const
 {
-	return state_; //digitalRead(pin_);
+	return digitalRead(pin_);
+}
+
+Digital_output::Digital_output(Digital_output&& other) noexcept : 
+pin_{ other.pin_ },
+manage_io_{ other.manage_io_ }
+{
+	// MFA TODO for you, miss neuhold & mister soukup
+	// MFA you want to move the ownership of the pin here. how could you do that?
+}
+
+Digital_output& Digital_output::operator=(Digital_output&& rhs) noexcept
+{
+	// MFA TODO for you, miss neuhold & mister soukup
+	return *this;
 }
 
 Digital_output::~Digital_output()
 {
-	ptr_pi_pins_->release(pin_);
+	manage_io_.release(pin_);
 }

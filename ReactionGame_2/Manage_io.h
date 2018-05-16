@@ -4,9 +4,8 @@
 
 class Manage_io {
 public:
-	Manage_io();
-	void reserve(int pin);
-	void release(int pin);
+	void reserve(int pin) const;
+	void release(int pin) const;
 
 private:
 	static std::vector<int> reserved_pins_;
