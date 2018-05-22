@@ -1,5 +1,5 @@
 
-#include <wiringPi.h>
+#include "piproxy.h"
 #include <chrono>
 #include <thread>
 

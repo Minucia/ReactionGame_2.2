@@ -10,7 +10,7 @@ OSD, 14.05.2018
 
 // ____________________________ Includes ____________________________
 
-#include <wiringPi.h>
+#include "piproxy.h"
 #include <chrono>
 //#include "json.hpp"
 

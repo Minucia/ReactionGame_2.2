@@ -1,0 +1,9 @@
+﻿  Digital_output.cpp
+  Game_data.cpp
+  Game_logic.cpp
+  Manage_io.cpp
+  Player.cpp
+  winpi.cpp
+  WinpiEmulator.cpp
+  Generating Code...
+  ReactionGameLib.vcxproj -> C:\Users\Ikarus\Source\Repos\ReactionGame_2.2\Debug\ReactionGameLib.lib
