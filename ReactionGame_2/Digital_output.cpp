@@ -1,16 +1,23 @@
 
-#include "piproxy.h"
+#include <iostream>
 #include <chrono>
 #include <thread>
-
+#include <stdexcept>
 #include "Digital_output.h"
 #include "Manage_io.h"
+#include "piproxy.h"
 
 
-Digital_output::Digital_output(int pin, bool state) : 
-	pin_{ pin }
+Digital_output::Digital_output(int pin, bool state) : pin_{ pin }
 {
-	manage_io_.reserve(pin);
+	try
+	{
+		manage_io_.reserve(pin);
+	}
+	catch (std::runtime_error& re)
+	{
+		std::cout << "Exception was thrown: " << re.what() << std::endl;
+	}
 	wiringPiSetup();
 	pinMode(pin_, OUTPUT);
 	digitalWrite(pin_, state);
@@ -49,21 +56,22 @@ bool Digital_output::get_state() const
 	return digitalRead(pin_);
 }
 
-Digital_output::Digital_output(Digital_output&& other) noexcept : 
-pin_{ other.pin_ },
-manage_io_{ other.manage_io_ }
+Digital_output::Digital_output(Digital_output&& other) noexcept : pin_{ other.pin_ }, manage_io_{ other.manage_io_ }
 {
 	// MFA TODO for you, miss neuhold & mister soukup
 	// MFA you want to move the ownership of the pin here. how could you do that?
+
 }
 
-Digital_output& Digital_output::operator=(Digital_output&& rhs) noexcept
+Digital_output& Digital_output::operator=(Digital_output&& other) noexcept
 {
-	// MFA TODO for you, miss neuhold & mister soukup
+	
+	std::swap(pin_, other.pin_);
 	return *this;
 }
 
 Digital_output::~Digital_output()
 {
-	manage_io_.release(pin_);
+	if (manage_io_.is_active_)
+		manage_io_.release(pin_);
 }

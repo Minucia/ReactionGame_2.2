@@ -39,35 +39,3 @@ public:
 	void set_actual_delay(int64_t actual_delay);
 	int64_t get_actual_delay() const;
 };
-
-
-
-/*
-// ____________________________ Enumerations ____________________________
-
-enum class States { preperation, reaction_led, result, finish };
-
-
-// ____________________________ Global variables - comment out ____________________________
-
-static constexpr auto led1_pin = 8;
-static constexpr auto led2_pin = 9;
-static constexpr auto led_reaction_pin = 7;
-static constexpr auto button1_pin = 0;
-static constexpr auto button2_pin = 2;
-static constexpr auto minimum_wait = 5;
-static constexpr auto maximum_wait = 10;
-static constexpr int64_t termination_time = 3;
-
-States states = States::preperation;
-
-bool loop = true;
-bool button1_flag = false;
-bool button2_flag = false;
-
-int played_rounds;
-
-int64_t desired_delay;
-int64_t delay_start;
-int64_t actual_delay;
-*/

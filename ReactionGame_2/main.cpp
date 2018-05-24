@@ -10,15 +10,10 @@ OSD, 14.05.2018
 
 // ____________________________ Includes ____________________________
 
-#include "piproxy.h"
-#include <chrono>
-//#include "json.hpp"
-
 #include "Game_data.h"
 #include "Game_logic.h"
-
-
-// ____________________________ Enumeration Class ____________________________
+#include "piproxy.h"
+//#include "json.hpp"
 
 
 // ____________________________ Function Prototypes ____________________________
@@ -35,7 +30,7 @@ using namespace std;
 
 // ____________________________ Global Object ____________________________
 
-Game_data game{ true, false, false, 0, 0, 0, 0, 0 }; //setting loop, button1_flag, button2_flag and played_rounds is important
+Game_data game_data{ true, false, false, 0, 0, 0, 0, 0 }; //setting loop, button1_flag, button2_flag and played_rounds is important
 
 
 // ____________________________ Main Function ____________________________
@@ -44,7 +39,7 @@ int main()
 {
 	button_setup();
 
-	Game_logic logic{ game };
+	Game_logic logic{ game_data };
 	logic.play();
 }
 
@@ -69,10 +64,10 @@ void button_setup()
 
 void button1_pressed()
 {
-	game.set_button1_flag(true);
+	game_data.set_button1_flag(true);
 }
 
 void button2_pressed()
 {
-	game.set_button2_flag(true);
+	game_data.set_button2_flag(true);
 }

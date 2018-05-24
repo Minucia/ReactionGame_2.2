@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Game_data.h"
 #include "Player.h"
 #include "Digital_output.h"
-#include "Game_data.h"
+
 
 class Game_logic
 {
@@ -26,9 +27,9 @@ private:
 	Player player1_;
 	Player player2_;
 	Digital_output led_reaction_;
-	Digital_output led_player1;
-	Digital_output led_player2;
-	Game_data& game;
+	Digital_output led_player1_;
+	Digital_output led_player2_;
+	Game_data& game_;
 
 	enum class States { preperation, reaction_led, result, finish };
 

@@ -1,7 +1,8 @@
-#include "Game_logic.h"
+
 #include <iostream>
-#include "piproxy.h"
 #include <thread>
+#include "Game_logic.h"
+#include "piproxy.h"
 
 using namespace std;
 
@@ -11,17 +12,16 @@ static constexpr auto led_reaction_pin = 7;
 
 Game_logic::Game_logic(Game_data& game_data) : 
 	led_reaction_{ led_reaction_pin, LOW },
-	led_player1{ led1_pin, LOW },
-	led_player2{ led2_pin, LOW },
-	game{ game_data },
+	led_player1_{ led1_pin, LOW },
+	led_player2_{ led2_pin, LOW },
+	game_{ game_data },
 	states_{States::preperation}
 {
+
 }
 
 void Game_logic::play()
 {
-	// --------------------- User Interface --------------------- 
-
 	cout << "Welcome to reaction game!\n" << endl;
 
 	read_player_names();
@@ -29,9 +29,7 @@ void Game_logic::play()
 	read_num_rounds();
 
 
-	// --------------------- Statemachine ---------------------
-
-	while (game.running())
+	while (game_.running())
 	{
 		play_round();
 	}
@@ -75,13 +73,13 @@ void Game_logic::play_round()
 
 void Game_logic::prepare_round()
 {
-	game.increase_played_rounds();
-	if (game.get_played_rounds() > game.get_rounds_to_play())
+	game_.increase_played_rounds();
+	if (game_.get_played_rounds() > game_.get_rounds_to_play())
 		states_ = States::finish;
 	else
 	{
-		led_player1.turn_off();
-		led_player2.turn_off();
+		led_player1_.turn_off();
+		led_player2_.turn_off();
 		led_reaction_.turn_off();
 
 		cout << "Current score: " << player1_.get_name() << " [" << player1_.get_score() << " : "
@@ -94,9 +92,9 @@ void Game_logic::prepare_round()
 
 		static constexpr auto minimum_wait = 5;
 		static constexpr auto maximum_wait = 10;
-		game.set_desired_delay(rand() % (maximum_wait + 1 - minimum_wait) + minimum_wait); //setting a random delay between 5 and 10 seconds
+		game_.set_desired_delay(rand() % (maximum_wait + 1 - minimum_wait) + minimum_wait); //setting a random delay between 5 and 10 seconds
 		using s = std::chrono::seconds;
-		game.set_delay_start(std::chrono::duration_cast<s>(std::chrono::system_clock::now().time_since_epoch()).count());
+		game_.set_delay_start(std::chrono::duration_cast<s>(std::chrono::system_clock::now().time_since_epoch()).count());
 
 		states_ = States::reaction_led;
 	}
@@ -105,15 +103,15 @@ void Game_logic::prepare_round()
 void Game_logic::toggle_reaction_led()
 {
 	using s = std::chrono::seconds;
-	game.set_actual_delay(std::chrono::duration_cast<s>(std::chrono::system_clock::now().time_since_epoch()).count() - game.get_delay_start());
+	game_.set_actual_delay(std::chrono::duration_cast<s>(std::chrono::system_clock::now().time_since_epoch()).count() - game_.get_delay_start());
 
-	if (game.get_actual_delay() >= game.get_desired_delay()) //waiting for random 5 to 10 seconds
+	if (game_.get_actual_delay() >= game_.get_desired_delay()) //waiting for random 5 to 10 seconds
 		led_reaction_.turn_on();
 
 	static constexpr int64_t termination_time = 3;
-	if (game.get_actual_delay() - game.get_desired_delay() >= termination_time) //if no one presses a button for 3 seconds, the game terminates
+	if (game_.get_actual_delay() - game_.get_desired_delay() >= termination_time) //if no one presses a button for 3 seconds, the game terminates
 		states_ = States::finish;
-	else if(game.get_button1_flag() || game.get_button2_flag())
+	else if(game_.get_button1_flag() || game_.get_button2_flag())
 		states_ = States::result;
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(1));
@@ -121,41 +119,41 @@ void Game_logic::toggle_reaction_led()
 
 void Game_logic::check_round_results()
 {
-	if (game.get_button1_flag())
+	if (game_.get_button1_flag())
 	{
 		if (led_reaction_.get_state() == HIGH)
 		{
 			led_reaction_.turn_off();
-			on_player_faster(player1_, led_player1);
+			on_player_faster(player1_, led_player1_);
 		}
 		else if (led_reaction_.get_state() == LOW)
 		{
-			on_player_too_fast(player2_, player1_, led_player2);
+			on_player_too_fast(player2_, player1_, led_player2_);
 		}
 
-		game.set_button1_flag(false);
-		game.set_button2_flag(false);
+		game_.set_button1_flag(false);
+		game_.set_button2_flag(false);
 	}
-	else if (game.get_button2_flag())
+	else if (game_.get_button2_flag())
 	{
 		if (led_reaction_.get_state() == HIGH)
 		{
 			led_reaction_.turn_off();
-			on_player_faster(player2_, led_player2);
+			on_player_faster(player2_, led_player2_);
 		}
 		else if (led_reaction_.get_state() == LOW)
 		{
-			on_player_too_fast(player1_, player2_, led_player1);
+			on_player_too_fast(player1_, player2_, led_player1_);
 		}
 
-		game.set_button1_flag(false);
-		game.set_button2_flag(false);
+		game_.set_button1_flag(false);
+		game_.set_button2_flag(false);
 	}
 }
 
 void Game_logic::finish_game()
 {
-	if (game.get_played_rounds() <= game.get_rounds_to_play())
+	if (game_.get_played_rounds() <= game_.get_rounds_to_play())
 	{
 		led_reaction_.turn_off();
 		cout << "The game terminated due to inactivity." << endl;
@@ -167,12 +165,12 @@ void Game_logic::finish_game()
 		if (player1_.get_score() > player2_.get_score())
 		{
 			cout << player1_.get_name() << " wins!" << endl;
-			led_player1.blink_5_sec();
+			led_player1_.blink_5_sec();
 		}
 		else if (player2_.get_score() > player1_.get_score())
 		{
 			cout << player2_.get_name() << " wins!" << endl;
-			led_player2.blink_5_sec();
+			led_player2_.blink_5_sec();
 		}
 		else
 		{
@@ -181,7 +179,7 @@ void Game_logic::finish_game()
 		}
 	}
 
-	game.stop(false);
+	game_.stop(true);
 }
 
 
@@ -220,8 +218,8 @@ void Game_logic::read_num_rounds() const
 	stringstream in_str{ input };
 	int number;
 	in_str >> number;
-	game.set_rounds_to_play(number);
-	cout << "You are going to play " << game.get_rounds_to_play() << " rounds. Let's start!" << endl;
+	game_.set_rounds_to_play(number);
+	cout << "You are going to play " << game_.get_rounds_to_play() << " rounds. Let's start!" << endl;
 }
 
 void Game_logic::on_player_faster(Player& player, Digital_output& led_player)

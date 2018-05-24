@@ -5,7 +5,7 @@
 class Digital_output {
 private:
 	int pin_;
-	Manage_io manage_io_;
+	Manage_io manage_io_{ true };
 
 public:
 	Digital_output(int pin, bool state);
@@ -17,8 +17,7 @@ public:
 
 	Digital_output(const Digital_output& other) = delete; //copy-constructor
 	Digital_output(Digital_output&& other) noexcept; //move-constructor
-	Digital_output& operator=(const Digital_output &rhs) = delete; //copy-assignment operator
-	Digital_output& operator=(Digital_output &&rhs) noexcept; //move-assignment operator
+	Digital_output& operator=(const Digital_output& other) = delete; //copy-assignment operator
+	Digital_output& operator=(Digital_output&& other) noexcept; //move-assignment operator
 	~Digital_output(); //destructor
 };
-
