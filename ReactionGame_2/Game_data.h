@@ -2,20 +2,8 @@
 
 #include <chrono>
 
-class Game_data {
-private:
-	bool loop_;
-	bool button1_flag_;
-	bool button2_flag_;
-
-	int played_rounds_;
-	int rounds_to_play_;
-
-	int64_t desired_delay_;
-	int64_t delay_start_;
-	int64_t actual_delay_;
-
-
+class Game_data
+{
 public:
 	Game_data(bool loop, bool button1_flag, bool button2_flag, int played_rounds, int rounds_to_play, int64_t desired_delay, int64_t delay_start, int64_t actual_delay);
 
@@ -38,4 +26,16 @@ public:
 	int64_t get_delay_start() const;
 	void set_actual_delay(int64_t actual_delay);
 	int64_t get_actual_delay() const;
+
+private:
+	bool loop_;
+	bool button1_flag_;
+	bool button2_flag_;
+
+	int played_rounds_;
+	int rounds_to_play_;
+
+	int64_t desired_delay_;
+	int64_t delay_start_;
+	int64_t actual_delay_;
 };

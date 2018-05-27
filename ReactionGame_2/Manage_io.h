@@ -1,9 +1,12 @@
 #pragma once
 
 #include <vector>
-#include "Digital_output.h"
 
-class Manage_io {
+class Manage_io
+{
+friend class Digital_output;
+friend class Digital_input;
+
 public:
 	Manage_io(bool is_active);
 	void reserve(int pin) const;
@@ -11,7 +14,5 @@ public:
 
 private:
 	bool is_active_;
-	static std::vector<int> reserved_pins_;
-
-friend Digital_output;
+	static std::vector<int> reserved_pins_; 
 };

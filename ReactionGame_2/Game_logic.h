@@ -3,13 +3,13 @@
 #include "Game_data.h"
 #include "Player.h"
 #include "Digital_output.h"
+#include "Digital_input.h"
 
 
 class Game_logic
 {
 public:
 	Game_logic(Game_data& game_data);
-	
 	void play();
 
 private:
@@ -29,6 +29,8 @@ private:
 	Digital_output led_reaction_;
 	Digital_output led_player1_;
 	Digital_output led_player2_;
+	Digital_input button_player1_;
+	Digital_input button_player2_;
 	Game_data& game_;
 
 	enum class States { preperation, reaction_led, result, finish };

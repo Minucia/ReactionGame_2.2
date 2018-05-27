@@ -2,7 +2,8 @@
 #include <sstream>
 
 
-class Player {
+class Player
+{
 public:
 	Player();
 	Player(std::string name, int score);

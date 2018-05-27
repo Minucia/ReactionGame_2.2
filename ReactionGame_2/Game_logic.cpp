@@ -10,14 +10,18 @@ static constexpr auto led1_pin = 8;
 static constexpr auto led2_pin = 9;
 static constexpr auto led_reaction_pin = 7;
 
+static constexpr auto button1_pin = 0;
+static constexpr auto button2_pin = 2;
+
 Game_logic::Game_logic(Game_data& game_data) : 
 	led_reaction_{ led_reaction_pin, LOW },
 	led_player1_{ led1_pin, LOW },
 	led_player2_{ led2_pin, LOW },
+	button_player1_{ button1_pin },
+	button_player2_{ button2_pin },
 	game_{ game_data },
 	states_{States::preperation}
 {
-
 }
 
 void Game_logic::play()
