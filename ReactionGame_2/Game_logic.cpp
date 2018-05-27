@@ -1,8 +1,11 @@
 
 #include <iostream>
+#include <fstream>
 #include <thread>
 #include "Game_logic.h"
 #include "piproxy.h"
+#include "json.hpp"
+
 
 using namespace std;
 
@@ -37,6 +40,45 @@ void Game_logic::play()
 	{
 		play_round();
 	}
+}
+
+void Game_logic::read_json()
+{
+	std::ifstream stream("pins.json");
+	nlohmann::json pin_json;
+	stream >> pin_json;
+
+	game_.led1_pin_ = pin_json["p1_led"].get<int>();
+	game_.led2_pin_ = pin_json["p2_led"].get<int>();
+	game_.led_reaction_pin_ = pin_json["state"].get<int>();
+	game_.button1_pin_ = pin_json["p1_button"].get<int>();
+	game_.button2_pin_ = pin_json["p2_button"].get<int>();
+}
+
+void Game_logic::read_player_names()
+{
+	string input;
+	cout << "Player 1, please enter your name." << endl;
+	getline(cin, input);
+	player1_.set_name(input);
+	cout << "Hello " << player1_.get_name() << ".\n" << endl;
+
+	cout << "Player 2, please enter your name." << endl;
+	getline(cin, input);
+	player2_.set_name(input);
+	cout << "Hello " << player2_.get_name() << ".\n" << endl;
+}
+
+void Game_logic::read_num_rounds() const
+{
+	string input;
+	cout << "How many rounds would you like to play?" << endl;
+	getline(cin, input);
+	stringstream in_str{ input };
+	int number;
+	in_str >> number;
+	game_.set_rounds_to_play(number);
+	cout << "You are going to play " << game_.get_rounds_to_play() << " rounds. Let's start!" << endl;
 }
 
 void Game_logic::play_round()
@@ -155,6 +197,35 @@ void Game_logic::check_round_results()
 	}
 }
 
+void Game_logic::both_leds_blink() //both player_leds blink for 5 seconds
+{
+	for (int i = 0; i < 5; i++)
+	{
+		digitalWrite(led1_pin, HIGH);
+		digitalWrite(led2_pin, HIGH);
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		digitalWrite(led1_pin, LOW);
+		digitalWrite(led2_pin, LOW);
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+	}
+}
+
+void Game_logic::on_player_faster(Player& player, Digital_output& led_player)
+{
+	player.increase_score();
+	cout << player.get_name() << " gets a point." << endl;
+	led_player.turn_on_3_sec();
+	states_ = States::preperation;
+}
+
+void Game_logic::on_player_too_fast(Player& winner, Player& loser, Digital_output& winner_led)
+{
+	winner.increase_score();
+	cout << "Not so fast " << loser.get_name() << ". " << winner.get_name() << " gets a point." << endl;
+	winner_led.turn_on_3_sec();
+	states_ = States::preperation;
+}
+
 void Game_logic::finish_game()
 {
 	if (game_.get_played_rounds() <= game_.get_rounds_to_play())
@@ -184,60 +255,4 @@ void Game_logic::finish_game()
 	}
 
 	game_.stop(true);
-}
-
-
-void Game_logic::both_leds_blink() //both player_leds blink for 5 seconds
-{
-	for (int i = 0; i < 5; i++)
-	{
-		digitalWrite(led1_pin, HIGH);
-		digitalWrite(led2_pin, HIGH);
-		std::this_thread::sleep_for(std::chrono::milliseconds(500));
-		digitalWrite(led1_pin, LOW);
-		digitalWrite(led2_pin, LOW);
-		std::this_thread::sleep_for(std::chrono::milliseconds(500));
-	}
-}
-
-void Game_logic::read_player_names()
-{
-	string input;
-	cout << "Player 1, please enter your name." << endl;
-	getline(cin, input);
-	player1_.set_name(input);
-	cout << "Hello " << player1_.get_name() << ". Your button is at pin 0. Your status LED is at pin 8.\n" << endl;
-
-	cout << "Player 2, please enter your name." << endl;
-	getline(cin, input);
-	player2_.set_name(input);
-	cout << "Hello " << player2_.get_name() << ". Your button is at pin 2. Your status_LED is at pin 9.\n" << endl;
-}
-
-void Game_logic::read_num_rounds() const
-{
-	string input;
-	cout << "How many rounds would you like to play?" << endl;
-	getline(cin, input);
-	stringstream in_str{ input };
-	int number;
-	in_str >> number;
-	game_.set_rounds_to_play(number);
-	cout << "You are going to play " << game_.get_rounds_to_play() << " rounds. Let's start!" << endl;
-}
-
-void Game_logic::on_player_faster(Player& player, Digital_output& led_player)
-{
-	player.increase_score();
-	cout << player.get_name() << " gets a point." << endl;
-	led_player.turn_on_3_sec();
-	states_ = States::preperation;
-}
-
-void Game_logic::on_player_too_fast(Player& winner, Player& loser, Digital_output& winner_led)
-{
-	winner.increase_score();
-	cout << "Not so fast " << loser.get_name() << ". " << winner.get_name() << " gets a point." << endl;
-	winner_led.turn_on_3_sec();
-	states_ = States::preperation;
 }

@@ -4,8 +4,12 @@
 
 class Game_data
 {
+friend class Game_logic;
+
 public:
-	Game_data(bool loop, bool button1_flag, bool button2_flag, int played_rounds, int rounds_to_play, int64_t desired_delay, int64_t delay_start, int64_t actual_delay);
+	Game_data(bool loop, bool button1_flag, bool button2_flag, int played_rounds, int rounds_to_play,
+		int led1_pin, int led2_pin, int led_reaction_pin, int button1_pin, int button2_pin,
+		int64_t desired_delay, int64_t delay_start, int64_t actual_delay);
 
 	void stop(bool loop);
 	bool running() const;
@@ -34,6 +38,12 @@ private:
 
 	int played_rounds_;
 	int rounds_to_play_;
+
+	int led1_pin_;
+	int led2_pin_;
+	int led_reaction_pin_;
+	int button1_pin_;
+	int button2_pin_;
 
 	int64_t desired_delay_;
 	int64_t delay_start_;
