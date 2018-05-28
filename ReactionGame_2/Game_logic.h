@@ -13,7 +13,6 @@ public:
 	void play();
 
 private:
-	void read_json();
 	void read_player_names();
 	void read_num_rounds() const;
 	void play_round();
@@ -22,7 +21,7 @@ private:
 	void check_round_results();
 	void on_player_faster(Player& player, Digital_output& led_player);
 	void on_player_too_fast(Player& winner, Player& loser, Digital_output& winner_led);
-	static void both_leds_blink();
+	void both_leds_blink();
 	void finish_game();
 	
 	Player player1_;

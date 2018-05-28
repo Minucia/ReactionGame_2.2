@@ -4,24 +4,18 @@
 #include <thread>
 #include "Game_logic.h"
 #include "piproxy.h"
-#include "json.hpp"
+
 
 
 using namespace std;
 
-static constexpr auto led1_pin = 8;
-static constexpr auto led2_pin = 9;
-static constexpr auto led_reaction_pin = 7;
-
-static constexpr auto button1_pin = 0;
-static constexpr auto button2_pin = 2;
 
 Game_logic::Game_logic(Game_data& game_data) : 
-	led_reaction_{ led_reaction_pin, LOW },
-	led_player1_{ led1_pin, LOW },
-	led_player2_{ led2_pin, LOW },
-	button_player1_{ button1_pin },
-	button_player2_{ button2_pin },
+	led_reaction_{ game_data.led_reaction_pin_, LOW },
+	led_player1_{ game_data.led1_pin_, LOW },
+	led_player2_{ game_data.led2_pin_, LOW },
+	button_player1_{ game_data.button1_pin_ },
+	button_player2_{ game_data.button2_pin_ },
 	game_{ game_data },
 	states_{States::preperation}
 {
@@ -40,19 +34,6 @@ void Game_logic::play()
 	{
 		play_round();
 	}
-}
-
-void Game_logic::read_json()
-{
-	std::ifstream stream("pins.json");
-	nlohmann::json pin_json;
-	stream >> pin_json;
-
-	game_.led1_pin_ = pin_json["p1_led"].get<int>();
-	game_.led2_pin_ = pin_json["p2_led"].get<int>();
-	game_.led_reaction_pin_ = pin_json["state"].get<int>();
-	game_.button1_pin_ = pin_json["p1_button"].get<int>();
-	game_.button2_pin_ = pin_json["p2_button"].get<int>();
 }
 
 void Game_logic::read_player_names()
@@ -201,11 +182,11 @@ void Game_logic::both_leds_blink() //both player_leds blink for 5 seconds
 {
 	for (int i = 0; i < 5; i++)
 	{
-		digitalWrite(led1_pin, HIGH);
-		digitalWrite(led2_pin, HIGH);
+		led_player1_.turn_on();
+		led_player2_.turn_on();
 		std::this_thread::sleep_for(std::chrono::milliseconds(500));
-		digitalWrite(led1_pin, LOW);
-		digitalWrite(led2_pin, LOW);
+		led_player1_.turn_off();
+		led_player2_.turn_off();
 		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 	}
 }

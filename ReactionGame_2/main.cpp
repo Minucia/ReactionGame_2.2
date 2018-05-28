@@ -36,6 +36,7 @@ Game_data game_data{ true, false, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; //setti
 
 int main()
 {
+	game_data.read_json();
 	Game_logic logic{ game_data };
 	interrupt_setup();
 	logic.play();

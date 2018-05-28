@@ -31,6 +31,8 @@ public:
 	void set_actual_delay(int64_t actual_delay);
 	int64_t get_actual_delay() const;
 
+	void read_json();
+
 private:
 	bool loop_;
 	bool button1_flag_;
