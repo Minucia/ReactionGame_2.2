@@ -1,4 +1,3 @@
-﻿  stdafx.cpp
-  unittest1.cpp
-     Creating library D:\FH\4_SS2018\OSD\Github_ReactionGame_2-2\Debug\TestReactionGame.lib and object D:\FH\4_SS2018\OSD\Github_ReactionGame_2-2\Debug\TestReactionGame.exp
-  TestReactionGame.vcxproj -> D:\FH\4_SS2018\OSD\Github_ReactionGame_2-2\Debug\TestReactionGame.dll
+﻿  unittest1.cpp
+     Creating library C:\Users\Jakob\Source\Repos\Reactiongame\Debug\TestReactionGame.lib and object C:\Users\Jakob\Source\Repos\Reactiongame\Debug\TestReactionGame.exp
+  TestReactionGame.vcxproj -> C:\Users\Jakob\Source\Repos\Reactiongame\Debug\TestReactionGame.dll
