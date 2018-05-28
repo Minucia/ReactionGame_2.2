@@ -41,12 +41,6 @@ void Game_data::read_json()
 	std::cout << "btn1" << button1_pin_ << std::endl;
 	std::cout << "btn2" << button2_pin_ << std::endl;
 	std::cout << "status" << led_reaction_pin_ << std::endl;
-
-	//led1_pin_ = 8;
-	//led2_pin_ = 0;
-	//led_reaction_pin_ = 9;
-	//button1_pin_ = 2;
-	//button2_pin_ = 7;
 }
 
 void Game_data::stop(bool loop)
