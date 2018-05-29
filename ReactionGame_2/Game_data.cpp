@@ -1,17 +1,51 @@
 
 #include "Game_data.h"
+#include "json.hpp"
 
+#include <iostream>
+#include <fstream>
 
-Game_data::Game_data(bool loop, bool button1_flag, bool button2_flag, int played_rounds, int rounds_to_play, int64_t desired_delay, int64_t delay_start, int64_t actual_delay) :
-	loop_{ loop }, button1_flag_{ button1_flag }, button2_flag_{ button2_flag }, played_rounds_{ played_rounds }, rounds_to_play_{ rounds_to_play }, desired_delay_ {
-	desired_delay
-}, delay_start_{ delay_start }, actual_delay_{ actual_delay }
+Game_data::Game_data(bool loop, bool button1_flag, bool button2_flag, int played_rounds, int rounds_to_play,
+	int led1_pin, int led2_pin, int led_reaction_pin, int button1_pin, int button2_pin,
+	int64_t desired_delay, int64_t delay_start, int64_t actual_delay) :
+	loop_{ loop },
+	button1_flag_{ button1_flag },
+	button2_flag_{ button2_flag },
+	played_rounds_{ played_rounds },
+	rounds_to_play_{ rounds_to_play },
+	led1_pin_{ led1_pin },
+	led2_pin_{ led2_pin },
+	led_reaction_pin_{ led_reaction_pin },
+	button1_pin_{ button1_pin },
+	button2_pin_{ button2_pin },
+	desired_delay_ { desired_delay },
+	delay_start_{ delay_start },
+	actual_delay_{ actual_delay }
 {
+}
+
+void Game_data::read_json()
+{
+	std::ifstream stream("pins.json");
+	nlohmann::json pin_json;
+	stream >> pin_json;
+
+	led1_pin_ = pin_json["p1_led"].get<int>();
+	led2_pin_ = pin_json["p2_led"].get<int>();
+	led_reaction_pin_ = pin_json["state"].get<int>();
+	button1_pin_ = pin_json["p1_button"].get<int>();
+	button2_pin_ = pin_json["p2_button"].get<int>();
+
+	std::cout << "led1: " << led1_pin_ << std::endl;
+	std::cout << "led2: " << led1_pin_ << std::endl;
+	std::cout << "btn1" << button1_pin_ << std::endl;
+	std::cout << "btn2" << button2_pin_ << std::endl;
+	std::cout << "status" << led_reaction_pin_ << std::endl;
 }
 
 void Game_data::stop(bool loop)
 {
-	loop_ = loop;
+	loop_ = !loop;
 }
 
 bool Game_data::running() const

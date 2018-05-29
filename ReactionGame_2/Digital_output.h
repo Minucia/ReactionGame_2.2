@@ -2,11 +2,8 @@
 
 #include "Manage_io.h"
 
-class Digital_output {
-private:
-	int pin_;
-	Manage_io manage_io_;
-
+class Digital_output
+{
 public:
 	Digital_output(int pin, bool state);
 	void turn_on();
@@ -17,8 +14,11 @@ public:
 
 	Digital_output(const Digital_output& other) = delete; //copy-constructor
 	Digital_output(Digital_output&& other) noexcept; //move-constructor
-	Digital_output& operator=(const Digital_output &rhs) = delete; //copy-assignment operator
-	Digital_output& operator=(Digital_output &&rhs) noexcept; //move-assignment operator
+	Digital_output& operator=(const Digital_output& other) = delete; //copy-assignment operator
+	Digital_output& operator=(Digital_output&& other) noexcept; //move-assignment operator
 	~Digital_output(); //destructor
-};
 
+private:
+	int pin_;
+	Manage_io manage_io_{ true };
+};

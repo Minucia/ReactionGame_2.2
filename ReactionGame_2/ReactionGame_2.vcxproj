@@ -51,6 +51,7 @@
     </RemotePostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Digital_input.cpp" />
     <ClCompile Include="Digital_output.cpp" />
     <ClCompile Include="Game_data.cpp" />
     <ClCompile Include="Game_logic.cpp" />
@@ -59,10 +60,13 @@
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Digital_input.h" />
     <ClInclude Include="Digital_output.h" />
     <ClInclude Include="Game_data.h" />
     <ClInclude Include="Game_logic.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="Manage_io.h" />
+    <ClInclude Include="piproxy.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
