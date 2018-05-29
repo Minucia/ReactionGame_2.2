@@ -1,3 +1,0 @@
-﻿  main.cpp
-main.obj : error LNK2019: unresolved external symbol "public: __thiscall Digital_input::~Digital_input(void)" (??1Digital_input@@QAE@XZ) referenced in function "public: __thiscall Game_logic::~Game_logic(void)" (??1Game_logic@@QAE@XZ)
-D:\FH\4_SS2018\OSD\Github_ReactionGame_2-2\Debug\ReactionGameWin.exe : fatal error LNK1120: 1 unresolved externals
