@@ -26,6 +26,12 @@
       <Project>{b3f53c23-82c8-43e6-8622-6627d91ee1e5}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="json.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="pins.json" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{3783CE6A-DCF8-43A7-B6C2-A1137426BC8E}</ProjectGuid>

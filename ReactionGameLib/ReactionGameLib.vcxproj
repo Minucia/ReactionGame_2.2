@@ -31,15 +31,11 @@
     <ClInclude Include="..\ReactionGame_2\Digital_output.h" />
     <ClInclude Include="..\ReactionGame_2\Game_data.h" />
     <ClInclude Include="..\ReactionGame_2\Game_logic.h" />
-    <ClInclude Include="..\ReactionGame_2\json.hpp" />
     <ClInclude Include="..\ReactionGame_2\Manage_io.h" />
     <ClInclude Include="..\ReactionGame_2\piproxy.h" />
     <ClInclude Include="..\ReactionGame_2\Player.h" />
     <ClInclude Include="winpi.h" />
     <ClInclude Include="WinpiEmulator.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\ReactionGame_2\pins.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

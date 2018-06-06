@@ -64,13 +64,9 @@
     <ClInclude Include="Digital_output.h" />
     <ClInclude Include="Game_data.h" />
     <ClInclude Include="Game_logic.h" />
-    <ClInclude Include="json.hpp" />
     <ClInclude Include="Manage_io.h" />
     <ClInclude Include="piproxy.h" />
     <ClInclude Include="Player.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="pins.json" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

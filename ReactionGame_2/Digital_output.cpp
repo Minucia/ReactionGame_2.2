@@ -20,7 +20,7 @@ Digital_output::Digital_output(int pin, bool state) : pin_{ pin }
 		std::cerr << "\n**** Exception was thrown: " << re.what() << std::endl;
 		std::cerr << "**** Please check your pins before continuing the game!" << std::endl;
 		std::cerr << "****************************************************************\n" << std::endl;
-		// TODO it would be nice to exit the game here
+		// TODO one day: it would be nice to exit the game here
 	}
 	wiringPiSetup();
 	pinMode(pin_, OUTPUT);

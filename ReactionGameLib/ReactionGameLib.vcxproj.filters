@@ -47,9 +47,6 @@
     <ClInclude Include="..\ReactionGame_2\Game_logic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ReactionGame_2\json.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\ReactionGame_2\Manage_io.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -65,8 +62,5 @@
     <ClInclude Include="winpi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\ReactionGame_2\pins.json" />
   </ItemGroup>
 </Project>

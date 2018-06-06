@@ -1,9 +1,9 @@
 /*
 ******************************************
-Reaction Game v 3.0 (incl. IO-Manager and json)
+Reaction Game v 3.1
 by Michaela Neuhold & Jakob Soukup
 
-OSD, 27.05.2018
+OSD, 06.06.2018
 ******************************************
  */
 
@@ -46,11 +46,8 @@ int main()
 
 void interrupt_setup()
 {
-	static constexpr auto button1_pin = 0;
-	static constexpr auto button2_pin = 2;
-
-	wiringPiISR(button1_pin, INT_EDGE_RISING, &button1_pressed); //interrupt
-	wiringPiISR(button2_pin, INT_EDGE_RISING, &button2_pressed); //interrupt
+	wiringPiISR(game_data.button1_pin_, INT_EDGE_RISING, &button1_pressed); //interrupt
+	wiringPiISR(game_data.button2_pin_, INT_EDGE_RISING, &button2_pressed); //interrupt
 }
 
 void button1_pressed()

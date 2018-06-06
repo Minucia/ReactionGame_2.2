@@ -12,6 +12,11 @@ Player::Player(string name, int score = 0) : name_{ name }, score_{ score }
 {
 }
 
+void Player::set_name(std::string name)
+{
+	name_ = name;
+}
+
 
 string Player::get_name() const
 {
